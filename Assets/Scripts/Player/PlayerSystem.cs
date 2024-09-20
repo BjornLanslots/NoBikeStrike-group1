@@ -20,13 +20,15 @@ public class PlayerSystem : MonoBehaviour
     {
         Driver,
         Passenger,
+        Cyclist,
         HostAI
     }
 
     public enum VehicleType
     {
         MDV,
-        AV
+        AV,
+        Bicycle
     }
 
     public InputMode PlayerInputMode;
@@ -34,11 +36,15 @@ public class PlayerSystem : MonoBehaviour
     PlayerAvatar _AvatarPrefab;
     [SerializeField]
     PlayerAvatar[] _AvatarPrefabDriver;
+    // Add cyclist prefab references
+    [SerializeField]
+    PlayerAvatar _AvatarPrefabCyclist;  // New cyclist prefab
 
 
     [NonSerialized]
     public PlayerAvatar LocalPlayer;
     public PlayerAvatar PedestrianPrefab => _AvatarPrefab;
+    
 
     // Avatars contains both Drivers and Pedestrians (in arbitrary order)
     [NonSerialized]
@@ -49,6 +55,8 @@ public class PlayerSystem : MonoBehaviour
     public List<PlayerAvatar> Pedestrians = new List<PlayerAvatar>();
     [NonSerialized]
     public List<PlayerAvatar> Passengers = new List<PlayerAvatar>();
+    [NonSerialized]
+    public List<PlayerAvatar> Cyclists = new List<PlayerAvatar>();  // Store cyclist avatars ????????????????????????
 
     PlayerAvatar[] Player2Avatar = new PlayerAvatar[UNetConfig.MaxPlayers];
     public PlayerAvatar GetAvatar(int player) => Player2Avatar[player];
@@ -76,6 +84,7 @@ public class PlayerSystem : MonoBehaviour
         }
     }
 
+    // Modify GetAvatarPrefab to handle the Cyclist role
     PlayerAvatar GetAvatarPrefab(SpawnPointType type, int carIdx)
     {
         switch (type)
@@ -85,19 +94,31 @@ public class PlayerSystem : MonoBehaviour
             case SpawnPointType.PlayerControlingCar:
             case SpawnPointType.PlayerInAIControlledCar:
                 return _AvatarPrefabDriver[carIdx];
+            case SpawnPointType.PlayerControlledCyclist:  // Add cyclist spawn point type
+                return _AvatarPrefabCyclist;
             default:
                 Assert.IsFalse(true, $"Invalid SpawnPointType: {type}");
                 return null;
         }
     }
 
+    // Modify SpawnLocalPlayer to handle the Cyclist role
     public void SpawnLocalPlayer(SpawnPoint spawnPoint, int player, ExperimentRoleDefinition role)
     {
         bool isPassenger = spawnPoint.Type == SpawnPointType.PlayerInAIControlledCar;
+        bool isCyclist = spawnPoint.Type == SpawnPointType.PlayerControlledCyclist; // Detect if cyclist
+
         LocalPlayer = SpawnAvatar(spawnPoint, GetAvatarPrefab(spawnPoint.Type, role.carIdx), player, role);
-        LocalPlayer.Initialize(false, PlayerInputMode, isPassenger ? ControlMode.Passenger : ControlMode.Driver, spawnPoint.VehicleType, spawnPoint.CameraIndex);
-        if (isPassenger)
+
+        if (isCyclist)
         {
+            LocalPlayer.Initialize(false, PlayerInputMode, ControlMode.Cyclist, VehicleType.Bicycle, spawnPoint.CameraIndex);
+            // Apply any cyclist-specific logic here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        }
+        else if (isPassenger)
+        {
+            LocalPlayer.Initialize(false, PlayerInputMode, ControlMode.Passenger, spawnPoint.VehicleType, spawnPoint.CameraIndex);
+
             var waypointFollow = LocalPlayer.GetComponent<WaypointProgressTracker>();
             Assert.IsNotNull(waypointFollow);
             waypointFollow.Init(role.AutonomousPath);
@@ -105,6 +126,10 @@ public class PlayerSystem : MonoBehaviour
 
             var hmiControl = LocalPlayer.GetComponent<ClientHMIController>();
             hmiControl.Init(_hmiManager);
+        }
+        else
+        {
+            LocalPlayer.Initialize(false, PlayerInputMode, ControlMode.Driver, spawnPoint.VehicleType, spawnPoint.CameraIndex);
         }
     }
 
@@ -114,13 +139,20 @@ public class PlayerSystem : MonoBehaviour
         remotePlayer.Initialize(true, InputMode.None, ControlMode.HostAI, spawnPoint.VehicleType);
     }
 
+    // Add new avatar collection for cyclists
     public List<PlayerAvatar> GetAvatarsOfType(AvatarType type)
     {
         switch (type)
         {
-            case AvatarType.Pedestrian: return Pedestrians;
-            case AvatarType.Driver: return Cars;
-            default: Assert.IsFalse(true, $"No avatar collection for type {type}"); return null;
+            case AvatarType.Pedestrian:
+                return Pedestrians;
+            case AvatarType.Driver:
+                return Cars;
+            case AvatarType.Cyclist:  // Add cyclist type
+                return Cyclists;
+            default:
+                Assert.IsFalse(true, $"No avatar collection for type {type}");
+                return null;
         }
     }
 
