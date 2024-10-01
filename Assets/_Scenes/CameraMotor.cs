@@ -9,6 +9,7 @@ public class BikeCameraFollow : MonoBehaviour
     public float verticalLookLimit = 30f; // Limit for looking up and down
 
     private float xRotation = 0f; // To store the vertical rotation
+    private float yRotation = 0f; // To store the horizontal rotation
     private bool isFollowing = true; // To track if the camera is following the bike
 
     void Start()
@@ -37,22 +38,27 @@ public class BikeCameraFollow : MonoBehaviour
         // If following the bike, update the position and rotation accordingly
         if (isFollowing)
         {
-            // Mouse input for looking up and down
+            // Mouse input for looking up and down and left and right
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
             // Update vertical rotation and clamp it
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -verticalLookLimit, verticalLookLimit);
 
+            // Update horizontal rotation
+            yRotation += mouseX;
+
             // Set the camera's position directly above the bike at the specified height
             Vector3 newPosition = target.position + Vector3.up * height;
             newPosition.z -= distance; // Optional: move the camera back if distance is set
 
-            // Set the camera's position
+            // Directly set the camera's position
             transform.position = newPosition;
 
-            // Apply the vertical rotation to the camera and match the bike's horizontal rotation
-            transform.localRotation = Quaternion.Euler(xRotation, target.eulerAngles.y, 0f);
+            // Calculate the new rotation based on bike's rotation and mouse input
+            Quaternion targetRotation = Quaternion.Euler(xRotation, yRotation + target.eulerAngles.y, 0f);
+            transform.rotation = targetRotation;
         }
     }
 }

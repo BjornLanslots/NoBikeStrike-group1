@@ -48,6 +48,12 @@ public class BikeMovement : MonoBehaviour
 
         // Rotate the steering object based on horizontal input
         RotateSteer(moveHorizontal);
+
+        // Reset bike orientation if R is pressed
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetBike();
+        }
     }
 
     void RotateWheels(float currentSpeed)
@@ -72,5 +78,12 @@ public class BikeMovement : MonoBehaviour
 
         // Apply the rotation to the steer transform around its local Y-axis with the offset
         steerTransform.localRotation = steerOffset * Quaternion.Euler(0, steerAngle, 0);
+    }
+
+    void ResetBike()
+    {
+        // Reset the bike's rotation to upright
+        rb.rotation = Quaternion.Euler(0f, 0.18f, 0f);
+        rb.position = new Vector3(rb.position.x, rb.position.y, rb.position.z); // Maintain current position
     }
 }
