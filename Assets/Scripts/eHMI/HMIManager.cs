@@ -7,7 +7,9 @@ public enum HMIState
 {
     DISABLED,
     STOP,
-    WALK,
+    LEFT,
+    RIGHT,
+    ARROW
 }
 
 //script that synchronizes hmi state between all players
@@ -89,7 +91,7 @@ public class HMIManager : MonoBehaviour
         if (_isHost)
         {
             hmiToChange.Display(requestedState);
-            _host.BroadcastReliable(new ChangeHMI
+            _host.BroadcastReliable(new ChangeHMI)
             {
                 HMI = idx,
                 State = (int)requestedState,
