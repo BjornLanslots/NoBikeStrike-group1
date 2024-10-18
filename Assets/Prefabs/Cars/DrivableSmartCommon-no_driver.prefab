@@ -1628,17 +1628,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787876385652902}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b100b64279042ff46b83465c27e51ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
   playerAvatar: {fileID: 8938021727904404209}
-  jerk: 2
+  jerk: 0
   turn_rate_degree: 360
-  speed: 0
-  acceleration: 0
+  speed: 10
+  acceleration: 2
   t: 0
   HasPitch: 1
   modelElements:
@@ -5179,7 +5179,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!124 &656564669814622698
