@@ -3,7 +3,12 @@ guid: 19afacb4684e0468b9467a16e4dc57aa
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - meshRenderer: {instanceID: 0}
+  - animator: {instanceID: 0}
+  - stop: {fileID: 2800000, guid: 702481870029e4826b11e00cec5c0cf0, type: 3}
+  - walk: {instanceID: 0}
+  - disabled: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
