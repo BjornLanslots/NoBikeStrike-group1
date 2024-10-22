@@ -15,7 +15,11 @@ public class AnimatorHMI : HMI
     [SerializeField]
     string stopTrigger = "stop";
     [SerializeField]
-    string walkTrigger = "walk";
+    string leftTrigger = "left";
+    [SerializeField]
+    string rightTrigger = "right";
+    [SerializeField]
+    string arrowTrigger = "arrow";
     [SerializeField]
     string disabledTrigger = "disabled";
 
@@ -23,7 +27,11 @@ public class AnimatorHMI : HMI
     [SerializeField]
     Texture2D stop;
     [SerializeField]
-    Texture2D walk;
+    Texture2D left;
+    [SerializeField]
+    Texture2D right;
+    [SerializeField]
+    Texture2D arrow;
     [SerializeField]
     Texture2D disabled;
 
@@ -41,9 +49,17 @@ public class AnimatorHMI : HMI
                 material.mainTexture = stop;
                 animator.SetTrigger(stopTrigger);
                 break;
-            case HMIState.WALK:
-                material.mainTexture = walk;
-                animator.SetTrigger(walkTrigger);
+            case HMIState.LEFT:
+                material.mainTexture = left;
+                animator.SetTrigger(leftTrigger);
+                break;
+            case HMIState.RIGHT:
+                material.mainTexture = right;
+                animator.SetTrigger(rightTrigger);
+                break;
+            case HMIState.ARROW:
+                material.mainTexture = arrow;
+                animator.SetTrigger(arrowTrigger);
                 break;
             default:
                 material.mainTexture = disabled;
