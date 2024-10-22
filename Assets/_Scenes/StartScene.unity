@@ -329,7 +329,6 @@ MonoBehaviour:
   _AvatarPrefabDriver:
   - {fileID: 8178994495170941814, guid: 9b647ce93def3514b8debf2be5acb328, type: 3}
   - {fileID: 8938021727904404209, guid: ebd3970cf96c84fdb90d5b8e3e55ddbc, type: 3}
-  - {fileID: 8938021727904404209, guid: ebd3970cf96c84fdb90d5b8e3e55ddbc, type: 3}
 --- !u!114 &301934535
 MonoBehaviour:
   m_ObjectHideFlags: 0
