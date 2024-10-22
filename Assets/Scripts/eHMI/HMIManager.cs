@@ -7,7 +7,9 @@ public enum HMIState
 {
     DISABLED,
     STOP,
-    WALK,
+    LEFT,
+    RIGHT,
+    ARROW
 }
 
 //script that synchronizes hmi state between all players

@@ -10,8 +10,12 @@ public class SpriteHMI : HMI
     [SerializeField]
     Sprite stop;
 	[SerializeField]
-	Sprite walk;
-	[SerializeField]
+	Sprite left;
+    [SerializeField]
+    Sprite right;
+    [SerializeField]
+    Sprite arrow;
+    [SerializeField]
 	Sprite disabled;
 
 	public override void Display(HMIState state)
@@ -23,8 +27,14 @@ public class SpriteHMI : HMI
             case HMIState.STOP:
                 spr = stop;
                 break;
-            case HMIState.WALK:
-                spr = walk;
+            case HMIState.LEFT:
+                spr = left;
+                break;
+            case HMIState.RIGHT:
+                spr= right;
+                break;
+            case HMIState.ARROW:
+                spr = arrow;
                 break;
             default:
                 spr = disabled;

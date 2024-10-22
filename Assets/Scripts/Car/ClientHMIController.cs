@@ -46,7 +46,15 @@ public class ClientHMIController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            ChangeToState(HMIState.WALK);
+            ChangeToState(HMIState.LEFT);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ChangeToState(HMIState.RIGHT);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ChangeToState(HMIState.ARROW);
         }
     }
 }
