@@ -2323,7 +2323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShortName: 
-  Name: Demo with 3 agents
+  Name: No BIke strike
   Scene: MainScene
   Roles:
   - Name: Cyclist
