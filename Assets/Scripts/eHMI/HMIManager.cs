@@ -5,9 +5,14 @@ using UnityEngine.Assertions;
 
 public enum HMIState
 {
+    WALK,
     DISABLED,
     STOP,
-    WALK,
+    LEFT,
+    RIGHT,
+    ARROW,
+    SIGN_1,
+    SIGN_2,
 }
 
 //script that synchronizes hmi state between all players
