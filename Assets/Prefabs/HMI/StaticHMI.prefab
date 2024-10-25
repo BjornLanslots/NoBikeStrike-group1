@@ -49,8 +49,8 @@ MonoBehaviour:
   _renderer: {fileID: 2863568381179415621}
   stop: {fileID: 21300000, guid: c9b1a72289d444fa386d050138ee6c47, type: 3}
   left: {fileID: 0}
-  right: {fileID: 0}
-  arrow: {fileID: 0}
+  right: {fileID: 21300000, guid: 8df259c78e09349f6957ff83eb9439ab, type: 3}
+  arrow: {fileID: 21300000, guid: 4a1bc370ccd5f41d3aeb92ae74ee512f, type: 3}
   Sign_1: {fileID: 21300000, guid: 660b4324d838e419b93cf3e9f4f0c49f, type: 3}
   Sign_2: {fileID: 21300000, guid: bfdbdc5c2df23442f95e2f9fdc7b6d7f, type: 3}
   disabled: {fileID: 21300000, guid: ccef1623427baf14aafcfad907d54068, type: 3}
